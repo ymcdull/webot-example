@@ -209,25 +209,6 @@ module.exports = exports = function(webot){
     }
   });
 
-  webot.set('guess_num',{
-    description: 'game',
-    pattern:/(?:game)\s*(\d?)/,
-    handler: function(info){
-      var num = Number(info.param[1]) || _.random(1,9);
-
-      verbose('answer is: ' + num);
-
-      info.session.guess_answer = num;
-
-      info.wait('wait_guess');
-      return '...'
-
-    }
-  });
-
-  
-
-
 
   webot.waitRule('wait_suggest_keyword', function(info, next){
     if (!info.text) {
