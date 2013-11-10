@@ -8,7 +8,8 @@
     "underscore": "~1.4",
     "debug": "~0.7.2",
     "js-yaml": "~2.0.3",
-    "weixin-robot": "~0.4.0"
+    "weixin-robot": "~0.4.0",
+    "jsdom": "*"
   },
   "devDependencies": {
     "mocha": "~1.13.0",
