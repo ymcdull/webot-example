@@ -27,8 +27,8 @@ module.exports = exports = function(webot){
     handler: function(info){
       var reply = {
         title: '感谢你收听潇潇机器人',
-        pic: 'https://http://sleepy-scrubland-9426.herokuapp.com/wechat/qrcode.jpg',
-        url: 'https://github.com/node-webot/webot-example',
+        pic: './qrcode.jpg',
+        // url: 'https://github.com/node-webot/webot-example',
         description: [
           '建议你试试这几条指令:',
             '1. game : 玩玩猜数字的游戏吧',
@@ -61,7 +61,7 @@ module.exports = exports = function(webot){
   webot.set('who_are_you', {
     description: '想知道我是谁吗? 发送: who?',
     // pattern 既可以是函数，也可以是 regexp 或 字符串(模糊匹配)
-    pattern: /who|你是[谁\?]+/i,
+    pattern: /who|你是|潇潇是[谁\?]+/i,
     // 回复handler也可以直接是字符串或数组，如果是数组则随机返回一个子元素
     handler: ['我是潇潇机器人', '潇潇机器人', '潇潇爱英国']
   });
@@ -86,7 +86,7 @@ module.exports = exports = function(webot){
 
   webot.set('English_topic',{
     description: "English_topic",
-    pattern: /.*(英国|雅思|Britain|british|england|ielts).*/i,
+    pattern: /.*(英国|雅思|英语|english|Britain|british|england|ielts).*/i,
     handler: ['主人正在开发这方面功能，不要心急哦亲','潇潇也爱英国，爱雅思，我会跟你一起努力的～加油']
   });
   // 简单的纯文本对话，可以用单独的 yaml 文件来定义
@@ -118,7 +118,7 @@ module.exports = exports = function(webot){
     handler: function(info) {
       var d = new Date();
       var h = d.getHours();
-      var t = '现在是服务器时间' + h + '点' + d.getMinutes() + '分';
+      var t = '现在时间是' + h+8 + '点' + d.getMinutes() + '分';
       if (h < 4 || h > 22) return t + '，夜深了，早点睡吧 [月亮]';
       if (h < 6) return t + '，您还是再多睡会儿吧';
       if (h < 9) return t + '，又是一个美好的清晨呢，今天准备去哪里玩呢？';
@@ -135,8 +135,8 @@ module.exports = exports = function(webot){
     pattern: /是男.还是女.|你.*男的女的/,
     handler: '你猜猜看呐',
     replies: {
-      '/女|girl/i': '人家才不是女人呢',
-      '/男|boy/i': '是的，我就是翩翩公子一枚',
+      '/女|girl/i': '是的，我就是软妹子一枚',
+      '/男|boy/i': '人家才不是汉子呢',
       'both|不男不女': '你丫才不男不女呢',
       '不猜': '好的，再见',
       // 请谨慎使用通配符
@@ -291,7 +291,7 @@ module.exports = exports = function(webot){
   webot.waitRule('wait_timeout', function(info) {
     if (new Date().getTime() - info.session.wait_begin > 5000) {
       delete info.session.wait_begin;
-      return '你的操作超时了,请重新输入';
+      return '哼，愤怒中，不理你~~~';
     } else {
       return '你在规定时限里面输入了: ' + info.text;
     }
@@ -299,12 +299,12 @@ module.exports = exports = function(webot){
 
   // 超时处理
   webot.set('timeout', {
-    description: '输入timeout, 等待5秒后回复,会提示超时',
-    pattern: 'timeout',
+    description: '不喜欢说脏话的坏孩子，5秒钟内不理你',
+    pattern: /^(shit|fuch|傻逼|傻子)$/i,
     handler: function(info) {
       info.session.wait_begin = new Date().getTime();
       info.wait('wait_timeout');
-      return '请等待5秒后回复';
+      return '不喜欢说脏话的坏孩子，5秒钟内不理你!';
     }
   });
 
