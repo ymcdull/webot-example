@@ -293,7 +293,7 @@ module.exports = exports = function(webot){
       delete info.session.wait_begin;
       return '哼，愤怒中，不理你~~~';
     } else {
-      return '你在规定时限里面输入了: ' + info.text;
+      return '哼，愤怒中，不理你~~~';
     }
   });
 
@@ -413,6 +413,6 @@ module.exports = exports = function(webot){
     // 你也可以将这些 message 存入数据库
     log('unhandled message: %s', info.text);
     info.flag = true;
-    return '你发送了「' + info.text + '」,可惜我太笨了,听不懂. 发送: help 查看可用的指令';
+    return '你发送了「' + info.text + '」,可惜潇潇没能明白你在说什么. 发送: help 查看可用的指令';
   });
 };
