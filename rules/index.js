@@ -84,6 +84,14 @@ module.exports = exports = function(webot){
     handler: ['潇潇机器人最爱你了', '好妹纸就是我，我就是潇潇机器人', 'love you!!']
   });
 
+
+  webot.set({
+    description: 'eat',
+    pattern: /.*(吃|eat).*/i,
+    handler: ['潇潇最爱吃糖葫芦了~', '吃糖葫芦最开心了～']
+  });
+
+
   webot.set('English_topic',{
     description: "English_topic",
     pattern: /.*(英国|雅思|英语|english|Britain|british|england|ielts).*/i,
@@ -202,7 +210,7 @@ module.exports = exports = function(webot){
 
       verbose('answer is: ' + num);
 
-      info.session.guesxs_answer = num;
+      info.session.guess_answer = num;
 
       info.wait('wait_guess');
       return '玩玩猜数字的游戏吧, 1~9,选一个';
