@@ -26,8 +26,8 @@ module.exports = exports = function(webot){
     },
     handler: function(info){
       var reply = {
-        title: '感谢你收听webot机器人',
-        pic: 'https://raw.github.com/node-webot/webot-example/master/qrcode.jpg',
+        title: '感谢你收听潇潇机器人',
+        pic: 'https://http://sleepy-scrubland-9426.herokuapp.com/wechat/qrcode.jpg',
         url: 'https://github.com/node-webot/webot-example',
         description: [
           '建议你试试这几条指令:',
@@ -63,7 +63,7 @@ module.exports = exports = function(webot){
     // pattern 既可以是函数，也可以是 regexp 或 字符串(模糊匹配)
     pattern: /who|你是[谁\?]+/i,
     // 回复handler也可以直接是字符串或数组，如果是数组则随机返回一个子元素
-    handler: ['我是神马机器人', '微信机器人']
+    handler: ['我是潇潇机器人', '潇潇机器人', '潇潇爱英国']
   });
 
   // 正则匹配后的匹配组存在 info.query 中
@@ -191,12 +191,32 @@ module.exports = exports = function(webot){
 
       verbose('answer is: ' + num);
 
-      info.session.guess_answer = num;
+      info.session.guesxs_answer = num;
 
       info.wait('wait_guess');
       return '玩玩猜数字的游戏吧, 1~9,选一个';
     }
   });
+
+  webot.set('guess_num',{
+    description: 'game',
+    pattern:/(?:game)\s*(\d?)/,
+    handler: function(info){
+      var num = Number(info.param[1]) || _.random(1,9);
+
+      verbose('answer is: ' + num);
+
+      info.session.guess_answer = num;
+
+      info.wait('wait_guess');
+      return '...'
+
+    }
+  });
+
+  
+
+
 
   webot.waitRule('wait_suggest_keyword', function(info, next){
     if (!info.text) {
