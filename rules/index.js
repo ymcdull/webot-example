@@ -78,6 +78,12 @@ module.exports = exports = function(webot){
     handler: '你好,{1}'
   });
 
+  webot.set('love_you',{
+    description: '喜欢你',
+    pattern: /.*(爱|喜欢|love).*/i,
+    handler: ['潇潇机器人最爱你了', '好妹纸就是我，我就是潇潇机器人', 'love you!!']
+  });
+
   // 简单的纯文本对话，可以用单独的 yaml 文件来定义
   require('js-yaml');
   webot.dialog(__dirname + '/dialog.yaml');
