@@ -3,7 +3,7 @@
 ## 本地运行
 
 ```bash
-git clone https://github.com/node-webot/webot-example.git
+git clone https://github.com/ymcdull/webot-example.git
 cd webot-example/
 npm install
 make start
@@ -43,7 +43,7 @@ webot send event      # 调试事件消息
 
 - 微信账号：webot-test
 
-![qrcode: webot-test](https://raw.github.com/node-webot/webot-example/master/qrcode.jpg)
+![qrcode: webot-test](https://raw.github.com/ymcdull/webot-example/master/qrcode.jpg)
 
 # 搭建你自己的机器人
 
