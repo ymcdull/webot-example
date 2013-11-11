@@ -11,13 +11,14 @@ var geo2loc = require('../support').geo2loc;
 
 var package_info = require('../package.json');
 var jsdom = require("jsdom");
-
+var FeedParser = require('feedparser');
+var request = require('request');
 
 /**
  * 初始化路由规则
  */
 module.exports = exports = function(webot){
-  var reg_help = /^(help|\?)$/i
+  var reg_help = /^(help|\?)$/i;
   webot.set({
     // name 和 description 都不是必须的
     name: 'hello help',
@@ -96,9 +97,52 @@ module.exports = exports = function(webot){
 
   webot.set('English_topic',{
     description: "English_topic",
-    pattern: /.*(英国|雅思|english|Britain|british|england|ielts).*/i,
+    pattern: /.*(雅思|english|Britain|england|ielts).*/i,
     handler: ['主人正在开发这方面功能，不要心急哦亲','潇潇也爱英国，爱雅思，我会跟你一起努力的～加油']
   });
+
+
+  webot.set('go_abroad_britain',{
+    description: "go_abroad_britain",
+    pattern: /.*(英国|Britain).*/i,
+    handler: function(info){
+      request('http://www.liuxue86.com/rss.php?rssid=269')
+        .pipe(new FeedParser())
+        .on('error', function(error) {
+          console.error(error);
+        })
+        .on('meta', function (meta) {
+          console.log('===== %s =====', meta.title);
+        })
+        .on('readable', function () {
+          var stream = this, item = stream.read();
+          var pattern=/.*英国.*$/;
+          var reply=[];
+          while (item){
+            if(pattern.test(item.title)){
+              reply.push({title:item.title, url:item.link});
+              // console.log('Got article: %s', item.title || item.description, "**link:**", item.link);
+            }
+            item = stream.read();
+          }
+          // console.log(reply);
+          return reply;
+          
+          // return reply;
+        }
+      );
+
+      // console.log(reply);
+      // var reply = [
+      //   {title: arr[0], description: '微信机器人测试帐号：webot', url: 'https://github.com/node-webot/webot-example'},
+      //   {title: arr[1], description: '豆瓣同城微信帐号二维码：douban-event',  url: 'https://github.com/node-webot/weixin-robot'},
+      //   {title: arr[2], description: '图文消息描述3', url: 'http://www.baidu.com'}
+      // ];
+      // 发送 "news 1" 时只回复一条图文消息
+      // return reply;
+    }
+  });
+
 
   webot.set('taisha',{
     description: "taisha",
