@@ -41,7 +41,7 @@ webot send event      # 调试事件消息
 
 ## 在微信上试用此示例
 
-- 微信账号：潇潇爱英国
+- 微信账号：webot-test
 
 ![qrcode: webot-test](https://raw.github.com/ymcdull/webot-example/master/qrcode.jpg)
 
