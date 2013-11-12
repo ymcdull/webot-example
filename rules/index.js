@@ -101,46 +101,92 @@ module.exports = exports = function(webot){
     handler: ['主人正在开发这方面功能，不要心急哦亲','潇潇也爱英国，爱雅思，我会跟你一起努力的～加油']
   });
 
+  // function geturl(cb){
+  //   var reply=[];
+  //   request('http://www.liuxue86.com/rss.php?rssid=269')
+  //     .pipe(new FeedParser())
+  //     .on('error', function(error) {
+  //       console.error(error);
+  //     })
+  //     .on('meta', function (meta) {
+  //       console.log('===== %s =====', meta.title);
+  //     })
+  //     .on('readable', function () {
+  //       var stream = this, item = stream.read();
+  //       var pattern=/.*英国.*$/;
+  //       while (item){
+  //         if(pattern.test(item.title)){
+  //           reply.push({title:item.title, url:item.link});
+  //           // console.log('Got article: %s', item.title || item.description, "**link:**", item.link);
+  //         }
+  //       item = stream.read();
+  //       }
+  //       cb(null,"hello");
+  //     });
+ 
+  // }
 
-  webot.set('go_abroad_britain',{
-    description: "go_abroad_britain",
-    pattern: /.*(英国|Britain).*/i,
-    handler: function(info){
-      request('http://www.liuxue86.com/rss.php?rssid=269')
+  // function v(arr){
+  //   return arr;
+  // }
+  function getRss(url,cb){
+      var reply=[];
+      request(url)
         .pipe(new FeedParser())
         .on('error', function(error) {
           console.error(error);
         })
-        .on('meta', function (meta) {
+        .on('meta', function (meta, next) {
           console.log('===== %s =====', meta.title);
         })
         .on('readable', function () {
           var stream = this, item = stream.read();
           var pattern=/.*英国.*$/;
-          var reply=[];
           while (item){
             if(pattern.test(item.title)){
               reply.push({title:item.title, url:item.link});
-              // console.log('Got article: %s', item.title || item.description, "**link:**", item.link);
             }
             item = stream.read();
           }
-          // console.log(reply);
-          return reply;
-          
-          // return reply;
-        }
-      );
-
-      // console.log(reply);
-      // var reply = [
-      //   {title: arr[0], description: '微信机器人测试帐号：webot', url: 'https://github.com/node-webot/webot-example'},
-      //   {title: arr[1], description: '豆瓣同城微信帐号二维码：douban-event',  url: 'https://github.com/node-webot/weixin-robot'},
-      //   {title: arr[2], description: '图文消息描述3', url: 'http://www.baidu.com'}
-      // ];
-      // 发送 "news 1" 时只回复一条图文消息
-      // return reply;
+        })
+        .on('end',function(){
+          cb(null, reply);
+        });
     }
+
+  webot.set('新闻',{
+    pattern:'/.*新闻.*/i',
+    handler: function(info,next){
+        getRss('http://www.liuxue86.com/rss.php?rssid=35',function(err,reply){ next(null, reply); });
+      }
+  });
+    
+  webot.set('院校',{
+    pattern:'/.*院校.*/i',
+    handler: function(info,next){
+        getRss('http://www.liuxue86.com/rss.php?rssid=269',function(err,reply){ next(null, reply); });
+      }
+  });
+
+  webot.set('排名',{
+    pattern:'/.*排名.*/i',
+    handler: function(info,next){
+        getRss('http://www.liuxue86.com/rss.php?rssid=170',function(err,reply){ next(null, reply); });
+      }
+  });
+
+  webot.set('文书',{
+    pattern:'/.*文书.*/i',
+    handler: function(info,next){
+        getRss('http://www.liuxue86.com/rss.php?rssid=425',function(err,reply){ next(null, reply); });
+      }
+  });
+
+  webot.set('签证',{
+    pattern:'/.*签证.*/i',
+    handler: function(info,next){
+        getRss('http://www.liuxue86.com/rss.php?rssid=38',function(err,reply){ next(null, reply); });
+      }
   });
 
 
@@ -375,7 +421,7 @@ module.exports = exports = function(webot){
   // 超时处理
   webot.set('timeout', {
     description: '不喜欢说脏话的坏孩子，5秒钟内不理你',
-    pattern: /^(shit|fuch|傻逼|傻子)$/i,
+    pattern: /^(shit|fuck|傻逼|傻子)$/i,
     handler: function(info) {
       info.session.wait_begin = new Date().getTime();
       info.wait('wait_timeout');
