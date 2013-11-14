@@ -13,15 +13,45 @@ var package_info = require('../package.json');
 var jsdom = require("jsdom");
 var FeedParser = require('feedparser');
 var request = require('request');
+var lineReader = require('line-reader');
+
 require('js-yaml');
 /**
  * 初始化路由规则
  */
 
-
 module.exports = exports = function(webot){
   webot.loads('jielong','dialogs');
   var reg_help = /^(help|\?)$/i;
+
+  webot.waitRule('type_question', function(info) {
+    if(info.text){
+      console.log(info.text);
+      lineReader.eachLine('dialogs/exist.txt', function(line, last, cb) {
+        console.log(line);
+        if(line.test(info.text))
+        {
+          cb(false); // stop reading
+          return "已经存在这个问题了";
+        } else {
+          cb();
+          return "这是一个新问题";
+        }
+      });
+    }
+
+  });
+
+  webot.set({
+    name: '学习',
+    description: '学习',
+    pattern: /^学习$/,
+    handler: function(info){
+      info.wait('type_question')
+      return "请输入问题"
+    }
+  });
+
   webot.set({
     // name 和 description 都不是必须的
     name: 'hello help',
