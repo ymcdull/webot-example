@@ -140,87 +140,87 @@ module.exports = exports = function(webot){
 
   webot.set('English_topic',{
     description: "English_topic",
-    pattern: /.*(雅思|english|Britain|england|ielts).*/i,
-    handler: ['主人正在开发这方面功能，不要心急哦亲','潇潇也爱英国，爱雅思，我会跟你一起努力的～加油']
+    pattern: /.*(英国|雅思|english|Britain|england|ielts).*/i,
+    handler: '潇潇也爱英国，爱雅思，我会跟你一起努力的～加油'
   });
 
 
-  webot.set('go_abroad_britain',{
-    description: "go_abroad_britain",
-    pattern: /.*(英国|Britain).*/i,
-    handler: function(info){
-      request('http://www.liuxue86.com/rss.php?rssid=269')
-        .pipe(new FeedParser())
-        .on('error', function(error) {
-          console.error(error);
-        })
-        .on('meta', function (meta) {
-          console.log('===== %s =====', meta.title);
-        })
-        .on('readable', function () {
-          var stream = this, item = stream.read();
-          var pattern=/.*英国.*$/;
-          var reply=[];
-          while (item){
-            if(pattern.test(item.title)){
-              reply.push({title:item.title, url:item.link});
-              // console.log('Got article: %s', item.title || item.description, "**link:**", item.link);
-            }
-            item = stream.read();
-          }
-          // console.log(reply);
-          return reply;
+  // webot.set('go_abroad_britain',{
+  //   description: "go_abroad_britain",
+  //   pattern: /.*(英国|Britain).*/i,
+  //   handler: function(info){
+  //     request('http://www.liuxue86.com/rss.php?rssid=269')
+  //       .pipe(new FeedParser())
+  //       .on('error', function(error) {
+  //         console.error(error);
+  //       })
+  //       .on('meta', function (meta) {
+  //         console.log('===== %s =====', meta.title);
+  //       })
+  //       .on('readable', function () {
+  //         var stream = this, item = stream.read();
+  //         var pattern=/.*英国.*$/;
+  //         var reply=[];
+  //         while (item){
+  //           if(pattern.test(item.title)){
+  //             reply.push({title:item.title, url:item.link});
+  //             // console.log('Got article: %s', item.title || item.description, "**link:**", item.link);
+  //           }
+  //           item = stream.read();
+  //         }
+  //         // console.log(reply);
+  //         return reply;
           
-          // return reply;
-        }
-      );
+  //         // return reply;
+  //       }
+  //     );
 
-      // console.log(reply);
-      // var reply = [
-      //   {title: arr[0], description: '微信机器人测试帐号：webot', url: 'https://github.com/node-webot/webot-example'},
-      //   {title: arr[1], description: '豆瓣同城微信帐号二维码：douban-event',  url: 'https://github.com/node-webot/weixin-robot'},
-      //   {title: arr[2], description: '图文消息描述3', url: 'http://www.baidu.com'}
-      // ];
-      // 发送 "news 1" 时只回复一条图文消息
-      // return reply;
-    }
-  });
+  //     // console.log(reply);
+  //     // var reply = [
+  //     //   {title: arr[0], description: '微信机器人测试帐号：webot', url: 'https://github.com/node-webot/webot-example'},
+  //     //   {title: arr[1], description: '豆瓣同城微信帐号二维码：douban-event',  url: 'https://github.com/node-webot/weixin-robot'},
+  //     //   {title: arr[2], description: '图文消息描述3', url: 'http://www.baidu.com'}
+  //     // ];
+  //     // 发送 "news 1" 时只回复一条图文消息
+  //     // return reply;
+  //   }
+  // });
 
 
-  webot.set('taisha',{
-    description: "taisha",
-    pattern: /^英语$/i,
-    handler: function(info){
-      var arr = [];
-      jsdom.env(
-        "http://www.taisha.org/abroad/en/",
-        function (error, window) {
-          var news = window.document.getElementsByClassName('new');
-          var tmp = [];
-          for (var i = news.length - 1; i >= 0; i--) {
-            tmp = news[i].getElementsByTagName('a');
-            for (var i = tmp.length - 1; i >= 0; i--) {
-              arr.push(tmp[i].textContent);
-            };
-            tmp=[];
-          };
-          for (var i = arr.length - 1; i >= 0; i--) {
-            console.log(arr[i]);
-          };
-          // console.log("there have been", window.$("a").length, "nodejs releases!");
-        });
+  // webot.set('taisha',{
+  //   description: "taisha",
+  //   pattern: /^英语$/i,
+  //   handler: function(info){
+  //     var arr = [];
+  //     jsdom.env(
+  //       "http://www.taisha.org/abroad/en/",
+  //       function (error, window) {
+  //         var news = window.document.getElementsByClassName('new');
+  //         var tmp = [];
+  //         for (var i = news.length - 1; i >= 0; i--) {
+  //           tmp = news[i].getElementsByTagName('a');
+  //           for (var i = tmp.length - 1; i >= 0; i--) {
+  //             arr.push(tmp[i].textContent);
+  //           };
+  //           tmp=[];
+  //         };
+  //         for (var i = arr.length - 1; i >= 0; i--) {
+  //           console.log(arr[i]);
+  //         };
+  //         // console.log("there have been", window.$("a").length, "nodejs releases!");
+  //       });
         
-      var reply = [
-        {title: arr[0], description: '微信机器人测试帐号：webot', pic: 'https://raw.github.com/node-webot/webot-example/master/qrcode.jpg', url: 'https://github.com/node-webot/webot-example'},
-        {title: arr[1], description: '豆瓣同城微信帐号二维码：douban-event', pic: 'http://i.imgur.com/ijE19.jpg', url: 'https://github.com/node-webot/weixin-robot'},
-        {title: arr[2], description: '图文消息描述3', pic: 'https://raw.github.com/node-webot/webot-example/master/qrcode.jpg', url: 'http://www.baidu.com'}
-      ];
-      // 发送 "news 1" 时只回复一条图文消息
-      return reply;
+  //     var reply = [
+  //       {title: arr[0], description: '微信机器人测试帐号：webot', pic: 'https://raw.github.com/node-webot/webot-example/master/qrcode.jpg', url: 'https://github.com/node-webot/webot-example'},
+  //       {title: arr[1], description: '豆瓣同城微信帐号二维码：douban-event', pic: 'http://i.imgur.com/ijE19.jpg', url: 'https://github.com/node-webot/weixin-robot'},
+  //       {title: arr[2], description: '图文消息描述3', pic: 'https://raw.github.com/node-webot/webot-example/master/qrcode.jpg', url: 'http://www.baidu.com'}
+  //     ];
+  //     // 发送 "news 1" 时只回复一条图文消息
+  //     return reply;
 
 
-    }
-  });
+  //   }
+  // });
 
 
 
