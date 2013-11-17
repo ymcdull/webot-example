@@ -14,30 +14,37 @@ var jsdom = require("jsdom");
 var FeedParser = require('feedparser');
 var request = require('request');
 var lineReader = require('line-reader');
-
+var fs = require('fs');
+var path = require('path')
 require('js-yaml');
 /**
  * 初始化路由规则
  */
 
+
 module.exports = exports = function(webot){
   webot.loads('jielong','dialogs');
   var reg_help = /^(help|\?)$/i;
+  webot.waitRule('input_answer',function(info){
 
-  webot.waitRule('type_question', function(info) {
+    return "Your question is:"+info.session.question+", and answer is:"+info.text;
+  });
+  webot.waitRule('input_question', function(info) {
     if(info.text){
-      console.log(info.text);
-      lineReader.eachLine('dialogs/exist.txt', function(line, last, cb) {
-        console.log(line);
-        if(line.test(info.text))
-        {
-          cb(false); // stop reading
+      // console.log(info.text);
+      lineReader.eachLine('rules/dialogs/exist.txt', function(line) {
+        if(RegExp(line).test(info.text)){
           return "已经存在这个问题了";
-        } else {
-          cb();
-          return "这是一个新问题";
         }
+        console.log(line);
+      }).then(function () {
+
+      console.log("It's new one!!");
+
       });
+      info.session.question = info.text;
+      info.wait('input_answer');
+      return "请输入答案";
     }
 
   });
@@ -45,9 +52,9 @@ module.exports = exports = function(webot){
   webot.set({
     name: '学习',
     description: '学习',
-    pattern: /^学习$/,
+    pattern: /^learn$/,
     handler: function(info){
-      info.wait('type_question')
+      info.wait('input_question')
       return "请输入问题"
     }
   });
@@ -519,6 +526,20 @@ module.exports = exports = function(webot){
     //item.title = (index+1) + '> ' + item.title;
     return item;
   };
+
+  webot.set('bbc',{
+    description:'bbc',
+    pattern: /^bbc$/i,
+    handler:function(info){
+      var reply={
+        type: 'music',
+        title: 'Music 101',
+        musicUrl: 'http://s2.hxen.com/m2/BBC/2013/11/20131117BBC.mp3',
+      };
+      return reply;
+    }
+  });
+
 
   //所有消息都无法匹配时的fallback
   webot.set(/.*/, function(info){
