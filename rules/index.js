@@ -534,7 +534,7 @@ module.exports = exports = function(webot){
       reply={
         type: 'music',
         title: 'Music 101',
-        musicUrl: 'music/bbc/tingvoa.com_20131008BBC.mp3',
+        musicUrl: ['music/bbc/tingvoa.com_20131008BBC.mp3','music/bbc/tingvoa.com_20131009BBC.mp3'],
       };
       // return reply;
       return reply;
