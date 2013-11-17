@@ -531,15 +531,15 @@ module.exports = exports = function(webot){
     description:'bbc',
     pattern: /^bbc$/i,
     handler:function(info){
-      var reply={
+      var reply=[{
         type: 'music',
         title: 'Music 101',
         musicUrl: './music/bbc/tingvoa.com_20131008BBC.mp3',
-      };
+        hqMusicUrl: './music/bbc/tingvoa.com_20131008BBC.mp3'
+      }];
       return reply;
     }
   });
-
 
   //所有消息都无法匹配时的fallback
   webot.set(/.*/, function(info){
