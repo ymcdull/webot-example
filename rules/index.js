@@ -74,7 +74,7 @@ module.exports = exports = function(webot){
         // url: 'https://github.com/node-webot/webot-example',
         description: [
           '潇潇机器人会每天给您推送英国留学和雅思考试的最新信息，同时您也可以尝试跟我聊天哟!目前您可以尝试以下功能:',
-            '1. 留学网站 :英国留学网站链接'
+            '1. 留学网站 :英国留学网站链接',
             '2. game : 玩玩猜数字的游戏吧',
             '3. s+空格+关键词 : 我会帮你百度搜索喔',
             '4. 成语/接龙/成语接龙/jielong: 成语接龙游戏，看你给出的成语的头文字能否对上我的最后一个字吧！',
