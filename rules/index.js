@@ -70,17 +70,14 @@ module.exports = exports = function(webot){
     handler: function(info){
       var reply = {
         title: '感谢你收听潇潇机器人',
-        pic: './qrcode.jpg',
+        pic: 'qrcode.jpg',
         // url: 'https://github.com/node-webot/webot-example',
         description: [
-          '建议你试试这几条指令:',
+          '潇潇机器人会每天给您推送英国留学和雅思考试的最新信息，同时您也可以尝试跟我聊天哟!目前您可以尝试以下功能:',
             '1. game : 玩玩猜数字的游戏吧',
             '2. s+空格+关键词 : 我会帮你百度搜索喔',
-            '3. s+空格+nde : 可以试试我的纠错能力',
-            '4. 发送你的经纬度',
-            '5. 重看本指令请回复help或问号',
-            '6. 更多指令请回复more',
-            'PS: 点击下面的「查看全文」将跳转到我的github页'
+            '3. 成语/接龙/成语接龙/jielong: 成语接龙游戏，看你给出的成语的头文字能否对上我的最后一个字吧！',
+            '还有更多新功能，潇潇正在开发中，祝福我们都能梦圆英国，加油！',
         ].join('\n')
       };
       // 返回值如果是list，则回复图文消息列表
