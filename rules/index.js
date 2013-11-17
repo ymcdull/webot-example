@@ -70,7 +70,7 @@ module.exports = exports = function(webot){
     handler: function(info){
       var reply = {
         title: '感谢你收听潇潇机器人',
-        pic: 'https://raw.github.com/ymcdull/webot-example/master/logo.jpg',
+        pic: 'https://raw.github.com/ymcdull/webot-example/master/xiaoxiaologo.jpg',
         // url: 'https://github.com/node-webot/webot-example',
         description: [
           '潇潇机器人会每天给您推送英国留学和雅思考试的最新信息，同时您也可以尝试跟我聊天哟!目前您可以尝试以下功能:',
@@ -141,7 +141,7 @@ module.exports = exports = function(webot){
   webot.set('English_topic',{
     description: "English_topic",
     pattern: /.*(英国|雅思|english|Britain|england|ielts).*/i,
-    handler: '潇潇也爱英国，爱雅思，我会跟你一起努力的～加油'
+    handler: ['潇潇也爱英国，爱雅思，我会跟你一起努力的～加油','祝福我们都申请上理想的学校，加油～']
   });
 
 
