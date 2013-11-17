@@ -535,7 +535,7 @@ module.exports = exports = function(webot){
         type: 'music',
         title: 'Music 101',
         musicUrl: './music/bbc/tingvoa.com_20131008BBC.mp3',
-        hqMusicUrl: './music/bbc/tingvoa.com_20131008BBC.mp3'
+        hqMusicUrl: './music/bbc/BBC.m4a',
       };
       // return reply;
       return info.reply;
