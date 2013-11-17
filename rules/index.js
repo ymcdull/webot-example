@@ -70,7 +70,7 @@ module.exports = exports = function(webot){
     handler: function(info){
       var reply = {
         title: '感谢你收听潇潇机器人',
-        picUrl: 'https://github.com/ymcdull/webot-example/blob/master/logo.jpg',
+        pic: 'https://raw.github.com/ymcdull/webot-example/master/logo.jpg',
         // url: 'https://github.com/node-webot/webot-example',
         description: [
           '潇潇机器人会每天给您推送英国留学和雅思考试的最新信息，同时您也可以尝试跟我聊天哟!目前您可以尝试以下功能:',
