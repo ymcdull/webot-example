@@ -527,19 +527,19 @@ module.exports = exports = function(webot){
     return item;
   };
 
-  webot.set('bbc',{
-    description:'bbc',
-    pattern: /^bbc$/i,
-    handler:function(info){
-      reply={
-        type: 'music',
-        title: 'Music 101',
-        musicUrl: 'http://zhangmenshiting.baidu.com/data2/music/64519681/2240751384567261128.mp3'
-      };
-      // return reply;
-      return reply;
-    }
-  });
+  // webot.set('bbc',{
+  //   description:'bbc',
+  //   pattern: /^bbc$/i,
+  //   handler:function(info){
+  //     reply={
+  //       type: 'music',
+  //       title: 'Music 101',
+  //       musicUrl: 'http://zhangmenshiting.baidu.com/data2/music/64519681/2240751384567261128.mp3'
+  //     };
+  //     // return reply;
+  //     return reply;
+  //   }
+  // });
 
   //所有消息都无法匹配时的fallback
   webot.set(/.*/, function(info){
