@@ -74,9 +74,10 @@ module.exports = exports = function(webot){
         // url: 'https://github.com/node-webot/webot-example',
         description: [
           '潇潇机器人会每天给您推送英国留学和雅思考试的最新信息，同时您也可以尝试跟我聊天哟!目前您可以尝试以下功能:',
-            '1. game : 玩玩猜数字的游戏吧',
-            '2. s+空格+关键词 : 我会帮你百度搜索喔',
-            '3. 成语/接龙/成语接龙/jielong: 成语接龙游戏，看你给出的成语的头文字能否对上我的最后一个字吧！',
+            '1. 留学网站 :英国留学网站链接'
+            '2. game : 玩玩猜数字的游戏吧',
+            '3. s+空格+关键词 : 我会帮你百度搜索喔',
+            '4. 成语/接龙/成语接龙/jielong: 成语接龙游戏，看你给出的成语的头文字能否对上我的最后一个字吧！',
             '还有更多新功能，潇潇正在开发中，祝福我们都能梦圆英国，加油！',
         ].join('\n')
       };
@@ -483,38 +484,39 @@ module.exports = exports = function(webot){
     pattern: function(info){
       return info.is('image');
     },
-    handler: function(info, next){
-      verbose('image url: %s', info.param.picUrl);
-      try{
-        var shasum = crypto.createHash('md5');
+    handler:'多谢亲的图片，图片功能正在开发中，潇潇先给你赞一枚～'
 
-        var req = require('request')(info.param.picUrl);
+     // function(info, next){
+    //   verbose('image url: %s', info.param.picUrl);
+    //   try{
+    //     var shasum = crypto.createHash('md5');
 
-        req.on('data', function(data) {
-          shasum.update(data);
-        });
-        req.on('end', function() {
-          return next(null, '你的图片hash: ' + shasum.digest('hex'));
-        });
-      }catch(e){
-        error('Failed hashing image: %s', e)
-        return '生成图片hash失败: ' + e;
-      }
-    }
+    //     var req = require('request')(info.param.picUrl);
+
+    //     req.on('data', function(data) {
+    //       shasum.update(data);
+    //     });
+    //     req.on('end', function() {
+    //       return next(null, '你的图片hash: ' + shasum.digest('hex'));
+    //     });
+    //   }catch(e){
+    //     error('Failed hashing image: %s', e)
+    //     return '生成图片hash失败: ' + e;
+    //   }
+    // }
   });
 
   // 回复图文消息
-  webot.set('reply_news', {
-    description: '发送news,我将回复图文消息你',
-    pattern: /^news\s*(\d*)$/,
+  webot.set('liuxue', {
+    description: 'liuxue',
+    pattern: /^留学网站$/,
     handler: function(info){
       var reply = [
-        {title: '微信机器人', description: '微信机器人测试帐号：webot', pic: 'https://raw.github.com/node-webot/webot-example/master/qrcode.jpg', url: 'https://github.com/node-webot/webot-example'},
-        {title: '豆瓣同城微信帐号', description: '豆瓣同城微信帐号二维码：douban-event', pic: 'http://i.imgur.com/ijE19.jpg', url: 'https://github.com/node-webot/weixin-robot'},
-        {title: '图文消息3', description: '图文消息描述3', pic: 'https://raw.github.com/node-webot/webot-example/master/qrcode.jpg', url: 'http://www.baidu.com'}
+        {title: '太傻论坛英国专版', description: 'DIY万岁！', pic: 'https://raw.github.com/ymcdull/webot-example/master/pic/taisha.jpg', url: 'http://www.taisha.org/abroad/en/'},
+        {title: '寄托天下英国频道', pic: 'https://raw.github.com/ymcdull/webot-example/master/pic/jituo.gif', url: 'http://www.gter.net/list-78-1.html'},
+        {title: '无忧雅思英国留学', pic: 'https://raw.github.com/ymcdull/webot-example/master/pic/51ielts.gif', url: 'http://www.51ielts.com/html/uk/liuxue/'}
       ];
-      // 发送 "news 1" 时只回复一条图文消息
-      return Number(info.param[1]) == 1 ? reply[0] : reply;
+      return reply;
     }
   });
 
