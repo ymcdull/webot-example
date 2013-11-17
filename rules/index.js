@@ -512,9 +512,9 @@ module.exports = exports = function(webot){
     pattern: /^留学网站$/,
     handler: function(info){
       var reply = [
-        {title: '太傻论坛英国专版', description: 'DIY万岁！', pic: 'https://raw.github.com/ymcdull/webot-example/master/pic/taisha.jpg', url: 'http://www.taisha.org/abroad/en/'},
+        {title: '太傻论坛英国专版', description: 'DIY万岁！', pic: 'https://raw.github.com/ymcdull/webot-example/master/pic/taisha2.jpg', url: 'http://www.taisha.org/abroad/en/'},
         {title: '寄托天下英国频道', pic: 'https://raw.github.com/ymcdull/webot-example/master/pic/jituo.gif', url: 'http://www.gter.net/list-78-1.html'},
-        {title: '无忧雅思英国留学', pic: 'https://raw.github.com/ymcdull/webot-example/master/pic/51ielts.gif', url: 'http://www.51ielts.com/html/uk/liuxue/'}
+        {title: '无忧雅思英国留学', pic: 'https://raw.github.com/ymcdull/webot-example/master/pic/512.gif', url: 'http://www.51ielts.com/html/uk/liuxue/'}
       ];
       return reply;
     }
